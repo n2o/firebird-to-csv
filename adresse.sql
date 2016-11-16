@@ -1,7 +1,6 @@
-CREATE TABLE ADRESSE
-(
-    ID          integer,
-    KUNDENNR    varchar(12),
+CREATE TABLE ADRESSE(
+    ID          integer not null primary key,
+    KUNDENNR    varchar(12) not null unique,
     ANREDE      varchar(12),
     KURZNAME    varchar(30),
     NAME1       varchar(30),
