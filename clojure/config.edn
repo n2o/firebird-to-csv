@@ -1,0 +1,28 @@
+{:query "select
+         (case when lieferanschname1 = '' Then (select name1 from adresse where id = adressen_id) else lieferanschname1 end) as Firma,
+         (case when lieferanschname1 = '' Then (select name2 from adresse where id = adressen_id) else lieferanschname2 end) as Name,
+         (case when lieferanschname1 = '' Then (select strasse from adresse where id = adressen_id) else lieferanschstr end) as Strasse,
+         (case when lieferanschname1 = '' Then (select name3 from adresse where id = adressen_id) else lieferanschname3 end) as Adresszusatz,
+         (case when lieferanschname1 = '' Then (select plz1 from adresse where id = adressen_id) else lieferanschplz end) as PLZ,
+         (case when lieferanschname1 = '' Then (select ort from adresse where id = adressen_id) else lieferanschort end) as Ort,
+         (case when lieferanschname1 = '' Then (select land from adresse where id = adressen_id) else lieferanschland end) as Land,
+
+         (select telefon from adresse where id = adressen_id) as Telefon,
+         (select email from adresse where id = adressen_id) as Email,
+         (select kundennr from adresse where id = adressen_id) as KundenNr,
+
+         auftragsnummer as Referenz,
+         'Saegeblaetter / Saegebaender' as Inhalt,
+         ' ' as Gewicht,
+         ' ' as Nachnahmebetrag
+         from lskopf"
+ :csv {:file-location "out.csv"
+       :headers       ["Firma", "Name", "Straße", "Adresszusatz", "PLZ", "Ort", "Land", "Telefon", "E-Mail", "KundenNr", "Referenz", "Inhalt", "Gewicht", "Nachnahmebetrag"]
+       :order         [:firma :name :strasse :adresszusatz :plz :ort :land :telefon :email :kundennr :referenz :inhalt :gewicht :nachnahmebetrag]
+       :separator     \;}
+ :firebird {:host     "localhost"
+            :port     3050
+            :username "sysdba"
+            :password "masterkey"
+            :database "/home/firebird/foo.fdb"}
+ }
