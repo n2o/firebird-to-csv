@@ -1,2 +1,11 @@
 general:
-    build_dir: clojure
+  build_dir: clojure
+
+dependencies:
+  override:
+    - lein deps
+
+test:
+  override:
+    - make
+    - cp target/uberjar/* $CIRCLE_ARTIFACTS
