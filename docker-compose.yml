@@ -1,9 +1,0 @@
-version: '2'
-services:
-  db:
-    image: jacobalberty/firebird
-    ports:
-      - "3050:3050"
-    environment:
-      ISC_USER: hotpie
-      ISC_PASSWD: hotpie
