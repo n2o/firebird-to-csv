@@ -44,6 +44,6 @@
 (defn -main []
   (try
     (rows->csv (map convert-one-row (get-rows)))
-    (catch Exception e (spit "error.log" (str "Folgender Fehler ist aufgetreten:\n" (.getMessage e))))))
+    (catch Exception e (spit "error.log" (str (new java.util.Date) " Folgender Fehler ist aufgetreten: " (.getMessage e) "\n") :append true))))
 
 #_(-main)
