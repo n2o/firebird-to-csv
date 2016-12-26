@@ -3,12 +3,9 @@
   (:require [clojure.edn :as edn]
             [clojure.data.csv :as csv]
             [clojure.string :refer [upper-case]]
-            ;[hikari-cp.core :refer :all]
-            ;[clojure.java.jdbc :as jdbc]
             [clojure.java.io :as io]
             [korma.core :as sql])
-  (:use [korma.db])
-  #_(import (org.firebirdsql.pool FBSimpleDataSource)))
+  (:use [korma.db]))
 
 (def db-config
   (firebird {:db "/home/firebird/foo.fdb"
