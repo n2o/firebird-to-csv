@@ -42,6 +42,8 @@
        :separator (get-in data [:csv :separator])))))
 
 (defn -main []
-  (rows->csv (map convert-one-row (get-rows))))
+  (try
+    (rows->csv (map convert-one-row (get-rows)))
+    (catch Exception e (spit "error.log" (str "Folgender Fehler ist aufgetreten:\n" (.getMessage e))))))
 
 #_(-main)
