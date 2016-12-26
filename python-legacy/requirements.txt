@@ -1,2 +1,0 @@
-fdb==1.6
-PyInstaller==3.2
