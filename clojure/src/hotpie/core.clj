@@ -7,18 +7,19 @@
             [korma.core :as sql])
   (:use [korma.db]))
 
-(def db-config
-  (firebird {:db "/home/firebird/foo.fdb"
-             :host "localhost"
-             :port "3050"
-             :user "sysdba"
-             :password "masterkey"
-             :make-pool? false}))
-(defdb fdb db-config)
-(default-connection fdb)
-
 (def data
   (edn/read-string (slurp "config.edn")))
+
+(def db-config
+  (let [config (:firebird data)]
+    (firebird {:db         (:database config)
+               :host       (:host config)
+               :port       (:port config)
+               :user       (:username config)
+               :password   (:password config)
+               :make-pool? false})))
+(defdb fdb db-config)
+(default-connection fdb)
 
 (defn get-rows
   "Makes database query and returns all matching rows fitting to :query."
@@ -43,4 +44,4 @@
 (defn -main []
   (rows->csv (map convert-one-row (get-rows))))
 
-(-main)
+#_(-main)
