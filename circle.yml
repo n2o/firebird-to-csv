@@ -1,5 +1,5 @@
 general:
-  build_dir: clojure
+  build_dir: .
 
 dependencies:
   override:
@@ -8,4 +8,4 @@ dependencies:
 test:
   override:
     - make
-    - cp target/uberjar/* $CIRCLE_ARTIFACTS
+    - cp *.zip $CIRCLE_ARTIFACTS
