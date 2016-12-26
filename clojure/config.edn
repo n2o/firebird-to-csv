@@ -16,7 +16,7 @@
          ' ' as Gewicht,
          ' ' as Nachnahmebetrag
          from lskopf"
- :csv {:file-location "/tmp/out.csv"
+ :csv {:file-location "out.csv"
        :headers       ["Firma", "Name", "Straße", "Adresszusatz", "PLZ", "Ort", "Land", "Telefon", "E-Mail", "KundenNr", "Referenz", "Inhalt", "Gewicht", "Nachnahmebetrag"]
        :order         [:firma :name :strasse :adresszusatz :plz :ort :land :telefon :email :kundennr :referenz :inhalt :gewicht :nachnahmebetrag]
        :separator     \;}
