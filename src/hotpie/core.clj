@@ -35,7 +35,8 @@
   "Given all rows from database, convert them and write them to a file."
   [rows]
   (let [csv-data (:csv data)]
-    (with-open [out-file (io/writer (:file-location csv-data))]
+    (with-open [out-file (io/writer (:file-location csv-data)
+                                    :encoding (:encoding csv-data))]
       (csv/write-csv
        out-file
        (cons (get-in data [:csv :headers]) rows)
