@@ -19,7 +19,8 @@
  :csv {:file-location "out.csv"
        :headers       ["Firma", "Name", "Straße", "Adresszusatz", "PLZ", "Ort", "Land", "Telefon", "E-Mail", "KundenNr", "Referenz", "Inhalt", "Gewicht", "Nachnahmebetrag"]
        :order         [:firma :name :strasse :adresszusatz :plz :ort :land :telefon :email :kundennr :referenz :inhalt :gewicht :nachnahmebetrag]
-       :separator     \;}
+       :separator     \;
+       :encoding      "windows-1251"}
  :firebird {:host     "localhost"
             :port     3050
             :username "sysdba"
