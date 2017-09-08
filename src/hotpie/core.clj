@@ -11,12 +11,12 @@
   (edn/read-string (slurp "config.edn")))
 
 (def db-config
-  (let [config (:firebird data)]
-    (firebird {:db         (:database config)
-               :host       (:host config)
-               :port       (:port config)
-               :user       (:username config)
-               :password   (:password config)
+  (let [{:keys [database host port username password]} (:firebird data)]
+    (firebird {:db         database
+               :host       host
+               :port       port
+               :user       username
+               :password   password
                :make-pool? false})))
 (defdb fdb db-config)
 (default-connection fdb)
@@ -29,22 +29,24 @@
 (defn convert-one-row
   "Take one row from the database and apply the order of the fields."
   [row]
-  (map #((keyword (upper-case (name %))) row) (get-in data [:csv :order])))
+  (map #((keyword (upper-case (name %))) row) (get-in data [:output :order])))
 
 (defn rows->csv
   "Given all rows from database, convert them and write them to a file."
   [rows]
-  (let [csv-data (:csv data)]
+  (let [csv-data (:output data)]
     (with-open [out-file (io/writer (:file-location csv-data)
                                     :encoding (:encoding csv-data))]
       (csv/write-csv
        out-file
-       (cons (get-in data [:csv :headers]) rows)
-       :separator (get-in data [:csv :separator])))))
+       rows
+       :separator (get-in data [:output :separator])))))
 
 (defn -main []
   (try
-    (rows->csv (map convert-one-row (get-rows)))
+    (do
+      (rows->csv (map convert-one-row (get-rows)))
+      (println "Success!"))
     (catch Exception e (spit "error.log" (str (new java.util.Date) " Folgender Fehler ist aufgetreten: " (.getMessage e) "\n") :append true))))
 
 #_(-main)

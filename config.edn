@@ -16,14 +16,13 @@
          ' ' as Gewicht,
          ' ' as Nachnahmebetrag
          from lskopf"
- :csv {:file-location "out.csv"
-       :headers       ["Firma", "Name", "Straße", "Adresszusatz", "PLZ", "Ort", "Land", "Telefon", "E-Mail", "KundenNr", "Referenz", "Inhalt", "Gewicht", "Nachnahmebetrag"]
-       :order         [:firma :name :strasse :adresszusatz :plz :ort :land :telefon :email :kundennr :referenz :inhalt :gewicht :nachnahmebetrag]
-       :separator     \;
-       :encoding      "latin1"}
+ :output {:file-location "output.csv"
+          :order         [:firma :name :strasse :adresszusatz :plz :ort :land :telefon :email :kundennr :referenz :inhalt :gewicht :nachnahmebetrag]
+          :separator     \;
+          :encoding      "utf-8" ;; setzt das Encoding beim SPEICHERN der CSV-Datei
+          :encoding-read "UTF-8"} ;; das Encoding, welches beim EINLESEN der CSV Datei gesetzt wird
  :firebird {:host     "localhost"
             :port     3050
             :username "sysdba"
             :password "masterkey"
-            :database "/home/firebird/foo.fdb"}
- }
+            :database "/home/firebird/foo.fdb"}}
