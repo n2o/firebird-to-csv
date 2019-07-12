@@ -1,4 +1,4 @@
-(defproject hotpie "0.1"
+(defproject hotpie "0.2"
   :description "Query Firebird database and convert the results to a CSV file."
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}

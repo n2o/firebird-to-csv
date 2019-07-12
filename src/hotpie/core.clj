@@ -34,12 +34,15 @@
 (defn rows->csv
   "Given all rows from database, convert them and write them to a file."
   [rows]
-  (let [csv-data (:output data)]
+  (let [csv-data (:output data)
+        headers (get-in data [:output :headers])]
     (with-open [out-file (io/writer (:file-location csv-data)
                                     :encoding (:encoding csv-data))]
       (csv/write-csv
        out-file
-       (cons (get-in data [:output :headers]) rows)
+       (if-not (nil? headers)  ;; wenn Header definiert sind, verwende sie
+         (cons headers rows)
+         rows)
        :separator (get-in data [:output :separator])))))
 
 (defn -main []
