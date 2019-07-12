@@ -39,7 +39,7 @@
                                     :encoding (:encoding csv-data))]
       (csv/write-csv
        out-file
-       rows
+       (cons (get-in data [:output :headers]) rows)
        :separator (get-in data [:output :separator])))))
 
 (defn -main []

@@ -17,6 +17,10 @@
          ' ' as Nachnahmebetrag
          from lskopf"
  :output {:file-location "output.csv"
+          ;; Die Anordnung der :headers und :order müssen übereinstimmen. Das ist die Reihenfolge
+          ;; in der die Werte gespeichert werden. :headers beschreibt dabei nur die ersten Zeile in
+          ;; der CSV wohingegen :order mit dem Query übereinstimmen muss.
+          :headers       ["Firma", "Name", "Straße", "Adresszusatz", "PLZ", "Ort", "Land", "Telefon", "E-Mail", "KundenNr", "Referenz", "Inhalt", "Gewicht", "Nachnahmebetrag"]
           :order         [:firma :name :strasse :adresszusatz :plz :ort :land :telefon :email :kundennr :referenz :inhalt :gewicht :nachnahmebetrag]
           :separator     \;
           :encoding      "utf-8" ;; setzt das Encoding beim SPEICHERN der CSV-Datei
