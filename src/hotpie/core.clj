@@ -5,18 +5,19 @@
             [clojure.string :refer [upper-case]]
             [clojure.java.io :as io]
             [korma.core :as sql])
-  (:use [korma.db]))
+  (:use [korma.db])
+  (:import (java.util Date)))
 
 (def data
   (edn/read-string (slurp "config.edn")))
 
 (def db-config
   (let [{:keys [database host port username password]} (:firebird data)]
-    (firebird {:db         database
-               :host       host
-               :port       port
-               :user       username
-               :password   password
+    (firebird {:db database
+               :host host
+               :port port
+               :user username
+               :password password
                :make-pool? false})))
 (defdb fdb db-config)
 (default-connection fdb)
@@ -39,17 +40,17 @@
     (with-open [out-file (io/writer (:file-location csv-data)
                                     :encoding (:encoding csv-data))]
       (csv/write-csv
-       out-file
-       (if-not (nil? headers)  ;; wenn Header definiert sind, verwende sie
-         (cons headers rows)
-         rows)
-       :separator (get-in data [:output :separator])))))
+        out-file
+        (if-not (nil? headers)                              ;; wenn Header definiert sind, verwende sie
+          (cons headers rows)
+          rows)
+        :separator (get-in data [:output :separator])))))
 
 (defn -main []
   (try
     (do
       (rows->csv (map convert-one-row (get-rows)))
       (println "Success!"))
-    (catch Exception e (spit "error.log" (str (new java.util.Date) " Folgender Fehler ist aufgetreten: " (.getMessage e) "\n") :append true))))
+    (catch Exception e (spit "error.log" (str (new Date) " Folgender Fehler ist aufgetreten: " (.getMessage e) "\n") :append true))))
 
 #_(-main)
