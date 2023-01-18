@@ -4,8 +4,8 @@
             [clojure.data.csv :as csv]
             [clojure.string :refer [upper-case]]
             [clojure.java.io :as io]
+            [korma.db :refer :all]
             [korma.core :as sql])
-  (:use [korma.db])
   (:import (java.util Date)))
 
 (def data
@@ -40,17 +40,20 @@
     (with-open [out-file (io/writer (:file-location csv-data)
                                     :encoding (:encoding csv-data))]
       (csv/write-csv
-        out-file
-        (if-not (nil? headers)                              ;; wenn Header definiert sind, verwende sie
-          (cons headers rows)
-          rows)
-        :separator (get-in data [:output :separator])))))
+       out-file
+       (if-not (nil? headers)                              ;; wenn Header definiert sind, verwende sie
+         (cons headers rows)
+         rows)
+       :separator (get-in data [:output :separator])))))
 
 (defn -main []
   (try
-    (do
-      (rows->csv (map convert-one-row (get-rows)))
-      (println "Success!"))
+    (rows->csv (map convert-one-row (get-rows)))
+    (println "Success!")
     (catch Exception e (spit "error.log" (str (new Date) " Folgender Fehler ist aufgetreten: " (.getMessage e) "\n") :append true))))
 
-#_(-main)
+
+(comment
+  (-main)
+  (get-rows)
+  :end)
