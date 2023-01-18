@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.cache/
+.nrepl-port
+output.csv
+.calva/
+
 *.zip
 
 ### Prevent JDK from being added
